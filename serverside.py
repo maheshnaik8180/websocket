@@ -2,7 +2,7 @@ import threading
 import socket
 import logging
 
-from websocket.log import logger
+from log import logger
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(('localhost', 5798))
@@ -16,7 +16,6 @@ def broadcast(message):
         client.send(message)
 
 # Function to handle clients'connections
-
 
 def handle_client(client):
     while True:
@@ -33,7 +32,6 @@ def handle_client(client):
             break
 # Main function to receive the clients connection
 
-
 def receive():
     while True:
         logger.info('Server is running and listening ...')
@@ -48,7 +46,6 @@ def receive():
         client.send('you are now connected!'.encode('utf-8'))
         thread = threading.Thread(target=handle_client, args=(client,))
         thread.start()
-
 
 if __name__ == "__main__":
     logger.setLevel(logging.INFO)

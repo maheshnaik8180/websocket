@@ -1,9 +1,9 @@
 import threading
 import socket
+
 alias = input('Choose an alias >>> ')
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('localhost', 5798))
-
 
 def client_receive():
     while True:
@@ -23,7 +23,6 @@ def client_send():
     while True:
         message = f'{alias}: {input("")}'
         client.send(message.encode('utf-8'))
-
 
 receive_thread = threading.Thread(target=client_receive)
 receive_thread.start()
