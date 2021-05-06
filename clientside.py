@@ -1,5 +1,8 @@
 import threading
 import socket
+import logging
+
+from log import logger
 
 alias = input('Choose an alias >>> ')
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -12,9 +15,9 @@ def client_receive():
             if message == "alias?":
                 client.send(alias.encode('utf-8'))
             else:
-                print(message)
+                logger.info(message)
         except:
-            print('Error!')
+            logger.info('Error!')
             client.close()
             break
 
