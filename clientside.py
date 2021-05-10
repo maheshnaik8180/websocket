@@ -21,6 +21,11 @@ alias = input('Enter Name: ')
 
 #Function to receive messages from Server
 def client_receive():
+    """
+    Function to receive messages from Server
+    use while loop recive function
+    """
+
     while(True):
         try:
             message = client.recv(1024).decode('utf-8')
@@ -35,6 +40,9 @@ def client_receive():
 
 #Function to send messages to Server
 def client_send():
+    """
+     Function to send messages to Server
+    """
     while(True):
         message = f'{alias}: {input("")}'
         logger.info(message)

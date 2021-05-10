@@ -1,8 +1,13 @@
+"""
+date = '23/04/2021'
+modified_date = '23/04/2021'
+author = 'Mahesh Naik'
+description = using socket programming create chat app and store chat in mysql database"""
+
 import os
 import threading
 import socket
 import time
-
 import mysql.connector
 import logging
 from dotenv import *
@@ -25,6 +30,11 @@ clients = []
 aliases = []
 
 class Server:
+    """
+        create constructor for server class
+        define variables
+        use mysql connector for connection between python and sql
+    """
     # Constructor for Server class
     def __init__(self, db_host, db_user, db_pass, db_name, logger):
         self.conn = mysql.connector.connect(host=db_host, user=db_user, password=db_pass, database=db_name)
@@ -34,7 +44,6 @@ class Server:
         self.logger = logger
 
         # Function to close database connection
-
     def close_conn(self):
         """
         parameter: conn =connection
@@ -49,7 +58,7 @@ class Server:
             store chat in database
             using sql query display the data
             """
-            sql_query = "SELECT * FROM chat_data;"
+            sql_query = "select * from clientA_clientB;;"
             try:
                 self.cursor.execute(sql_query)
                 result = self.cursor.fetchall()
@@ -68,11 +77,12 @@ class Server:
                 client.send(message)
 
     # Function to handle clients'connections
-
-
     def handle_client(self,client):
         """
-        handle client use buffer string
+        handle client connection
+        use buffer string
+        decode the msg using utf -8
+
         """
         while(True):
             try:
@@ -95,14 +105,19 @@ class Server:
 
                 try:
                     self.cursor.execute(sql_query)
-                    self.cursor.commit()
+                    self.conn.commit()
                 except:
-                    self.cursor.rollback()
+                    self.conn.rollback()
                 self.display()
     # Main function to receive the clients connection
 
     # Function to receive messages from clients
     def receive(self):
+        """
+        Function to receive messages from clients
+        connection establish with client
+        client data receive and append data in list
+        """
         while (True):
             logger.info('Server is running and listening ...')
             client,address = server.accept()
@@ -121,6 +136,7 @@ class Server:
 
 
 if __name__ == "__main__":
+    # function call
     dbconn = Server(db_host, db_user, db_pass, db_name, logger)
     logger.setLevel(logging.INFO)
     dbconn.receive()
