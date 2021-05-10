@@ -32,7 +32,7 @@ def client_receive():
             if message == 'name':
                 client.send(alias.encode('utf-8'))
             else:
-                logger.info(message)
+                print(message)
         except:
             logger.error('Error!')
             client.close()
@@ -45,7 +45,7 @@ def client_send():
     """
     while(True):
         message = f'{alias}: {input("")}'
-        logger.info(message)
+        print(message)
         client.send(message.encode('utf-8'))
 
 #Implementing multi threading for making it multi client

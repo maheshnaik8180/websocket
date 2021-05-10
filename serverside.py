@@ -101,7 +101,8 @@ class Server:
                 self.aliases.remove(alias)
                 break
             else:
-                sql_query = "INSERT INTO ClientA_ClientB(chat) VALUES('{},{}');".format(time_stamp,data)
+
+                sql_query = "INSERT INTO ClientA_ClientB (chat,time) VALUES('{}','{}');".format(data,time_stamp)
 
                 try:
                     self.cursor.execute(sql_query)
